@@ -9,3 +9,9 @@ Data sources
 * StreetEasy API http://streeteasy.com/api/info (in beta) 
 * Brooklyn Visual Heritage http://www.brooklynvisualheritage.org/ (many photos of old Bushwick & the 1970s)
 * Brooklyn Daily Eagle Archives http://bklyn.newspapers.com/ (useful for searching by address, but no API) 
+
+Libraries and APIs
+
+* https://github.com/hit9/img2txt
+* http://www.pythonware.com/products/pil/
+* http://instagram.com/developer/
