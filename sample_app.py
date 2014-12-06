@@ -6,7 +6,7 @@ import beaker.middleware
 import urllib
 import cStringIO
 
-from bottle import route, redirect, post, run, request, hook
+from bottle import route, redirect, post, run, request, hook, static_file
 from bottle.ext import sqlite
 from instagram import client, subscriptions
 
@@ -117,6 +117,9 @@ def img2txt(imgname):
     <head>
       <meta http-equiv="content-type" content="text/html; charset=utf-8" />
       <style type="text/css" media="all">
+      body {background: black; color: white;}
+      h1, h2, li {font: 12px monospace;}
+      a, a:hover {color:green;}
         pre {
           white-space: pre-wrap;       /* css-3 */
           white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
@@ -150,28 +153,32 @@ def process_tag_update(update):
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update)
 
+@route('/static/<filepath:path>')
+def server_static(filepath):
+    return static_file(filepath, root='./static/')
+
 @route('/')
 def home():
     try:
         url = unauthenticated_api.get_authorize_url(scope=["likes","comments"])
 
-        return '<a href="%s">Connect with Instagram</a>' % url
+        return '<body style="background: black; color: white"><a href="%s" style="font: 12px monospace;">Connect with Instant-GRAM</a>' % url
     except Exception as e:
         print(e)
 
 def get_nav():
-    nav_menu = ("<h1>Bushwick Internet '85</h1>"
-                "<ul>"
+    nav_menu = ("<body style='background: black; color: white'><h1 style='font: 25px monospace;'>Bushwick Internet '85</h1>"
+                "<ol>"
 #                    "<li><a href='/recent'>User Recent Media</a> Calls user_recent_media - Get a list of a user's most recent media</li>"
 #                    "<li><a href='/user_media_feed'>User Media Feed</a> Calls user_media_feed - Get the currently authenticated user's media feed uses pagination</li>"
 #                    "<li><a href='/location_recent_media'>Location Recent Media</a> Calls location_recent_media - Get a list of recent media at a given location, in this case, Bushwick</li>"
-                    "<li><a href='/media_search'>Lat / Long Search</a></li>"
+                    "<li style='font: 25px monospace;'><a href='/media_search'>Lat / Long Search</a></li>"
 #                    "<li><a href='/media_popular'>Popular Media</a> Calls media_popular - Get a list of the overall most popular media items</li>"
 #                    "<li><a href='/user_search'>User Search</a> Calls user_search - Search for users on instagram, by name or username</li>"
 #                    "<li><a href='/user_follows'>User Follows</a> Get the followers of @instagram uses pagination</li>"
 #                    "<li><a href='/location_search'>Location Search</a> Calls location_search - Search for a location by lat/lng</li>"
-                    "<li><a href='/tag_search'>Bushwick Tag Search</a></li>"
-                "</ul>")
+                    "<li style='font: 25px monospace;'><a href='/tag_search'>Bushwick Tag Search</a></li>"
+                "</ol>")
 
     return nav_menu
 
