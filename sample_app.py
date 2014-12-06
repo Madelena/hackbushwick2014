@@ -6,7 +6,7 @@ import beaker.middleware
 import urllib
 import cStringIO
 
-from bottle import route, redirect, post, run, request, hook
+from bottle import route, redirect, post, run, request, hook, static_file
 from bottle.ext import sqlite
 from instagram import client, subscriptions
 
@@ -149,6 +149,10 @@ def process_tag_update(update):
 
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update)
+
+@route('/static/<filepath:path>')
+def server_static(filepath):
+    return static_file(filepath, root='./static/')
 
 @route('/')
 def home():
