@@ -107,7 +107,7 @@ def img2txt(imgname):
             if (clr):
                 string += "<span style=\"color:rgb" + str(rgb) + ";\">▇</span>"
             else:
-                string += "<span style=\"font-family: 'Courier New', monospace; display:inline-block;\">" + color[int(sum(rgb) / 3.0 / 256.0 * 16)] + "</span>"
+                string += "<span style=\"font-family: monospace; display:inline-block;\">" + color[int(sum(rgb) / 3.0 / 256.0 * 16)] + "</span>"
 
         string += "\n"
 
@@ -116,6 +116,7 @@ def img2txt(imgname):
     <html>
     <head>
       <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	  <link href='http://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
       <style type="text/css" media="all">
         pre {
           white-space: pre-wrap;       /* css-3 */
@@ -123,14 +124,19 @@ def img2txt(imgname):
           white-space: -pre-wrap;      /* Opera 4-6 */
           white-space: -o-pre-wrap;    /* Opera 7 */
           word-wrap: break-word;       /* Internet Explorer 5.5+ */
-          font-family: 'Inconsolata', 'Consolas'!important;
+          font-family: 'Cousine', 'Consolas'!important;
           line-height: 1.0;
           font-size: %dpx;
         }
+		body {background: black; color: white;}
+		#container {position: absolute; top: 50%; left: 5%; width: 1080px; height: 90%; margin-left: -540px; overflow: scroll; overflow-x: hidden;}
+		h1, h2, li {font: Cousine, monospace; font-size: 12px; line-height: 12px;}
       </style>
     </head>
     <body>
+	<div class="container">
       <pre>%s</pre>
+	  </div>
     </body>
     </html>
     """
@@ -161,7 +167,7 @@ def home():
 
 def get_nav():
     nav_menu = ("<h1>Bushwick Internet '85</h1>"
-                "<ul>"
+                "<ol>"
 #                    "<li><a href='/recent'>User Recent Media</a> Calls user_recent_media - Get a list of a user's most recent media</li>"
 #                    "<li><a href='/user_media_feed'>User Media Feed</a> Calls user_media_feed - Get the currently authenticated user's media feed uses pagination</li>"
 #                    "<li><a href='/location_recent_media'>Location Recent Media</a> Calls location_recent_media - Get a list of recent media at a given location, in this case, Bushwick</li>"
@@ -171,7 +177,7 @@ def get_nav():
 #                    "<li><a href='/user_follows'>User Follows</a> Get the followers of @instagram uses pagination</li>"
 #                    "<li><a href='/location_search'>Location Search</a> Calls location_search - Search for a location by lat/lng</li>"
                     "<li><a href='/tag_search'>Bushwick Tag Search</a></li>"
-                "</ul>")
+                "</ol>")
 
     return nav_menu
 
