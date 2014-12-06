@@ -6,7 +6,7 @@ import beaker.middleware
 import urllib
 import cStringIO
 
-from bottle import route, redirect, post, run, request, hook, static_file
+from bottle import route, redirect, post, run, request, hook
 from bottle.ext import sqlite
 from instagram import client, subscriptions
 
@@ -37,7 +37,7 @@ app = beaker.middleware.SessionMiddleware(bottle.app(), session_opts)
 CONFIG = {
     'client_id': 'b2295a1989024deb83be4f2ca5d243a7',
     'client_secret': '863ac37031484e15a8fbbdff3713d17a',
-    'redirect_uri': 'http://104.131.176.227:8515/oauth_callback'
+    'redirect_uri': 'http://localhost:8515/oauth_callback'
 }
 
 bw_latitude = "40.6962141"
@@ -116,6 +116,7 @@ def img2txt(imgname):
     <html>
     <head>
       <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	      <link href='http://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
       <style type="text/css" media="all">
         pre {
           white-space: pre-wrap;       /* css-3 */
@@ -123,14 +124,17 @@ def img2txt(imgname):
           white-space: -pre-wrap;      /* Opera 4-6 */
           white-space: -o-pre-wrap;    /* Opera 7 */
           word-wrap: break-word;       /* Internet Explorer 5.5+ */
-          font-family: 'Inconsolata', 'Consolas'!important;
+          font-family: 'Cousine', 'Consolas'!important;
           line-height: 1.0;
           font-size: %dpx;
         }
+		body {background: black; color white;}
+		#container {position: absolute; top: 5%; left: 50%; margin-left: -540px; width: 1080px; height: 90%;}
+		h1, h2, li {font: 12px 'Consine', monospace; line-height: 12px;}
       </style>
     </head>
-    <body>
-      <pre>%s</pre>
+    <body><div id="container">
+      <pre>%s</pre></div>
     </body>
     </html>
     """
@@ -150,32 +154,28 @@ def process_tag_update(update):
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update)
 
-@route('/static/<filepath:path>')
-def server_static(filepath):
-    return static_file(filepath, root='./static/')
-
 @route('/')
 def home():
     try:
         url = unauthenticated_api.get_authorize_url(scope=["likes","comments"])
 
-        return '<a href="%s">Connect with Instagram</a>' % url
+        return '<a href="%s">[C]onnect with Instant-GRAM</a>' % url
     except Exception as e:
         print(e)
 
 def get_nav():
     nav_menu = ("<h1>Bushwick Internet '85</h1>"
-                "<ul>"
-#                    "<li><a href='/recent'>User Recent Media</a> Calls user_recent_media - Get a list of a user's most recent media</li>"
-#                    "<li><a href='/user_media_feed'>User Media Feed</a> Calls user_media_feed - Get the currently authenticated user's media feed uses pagination</li>"
-#                    "<li><a href='/location_recent_media'>Location Recent Media</a> Calls location_recent_media - Get a list of recent media at a given location, in this case, Bushwick</li>"
-                    "<li><a href='/media_search'>Lat / Long Search</a></li>"
-#                    "<li><a href='/media_popular'>Popular Media</a> Calls media_popular - Get a list of the overall most popular media items</li>"
-#                    "<li><a href='/user_search'>User Search</a> Calls user_search - Search for users on instagram, by name or username</li>"
-#                    "<li><a href='/user_follows'>User Follows</a> Get the followers of @instagram uses pagination</li>"
-#                    "<li><a href='/location_search'>Location Search</a> Calls location_search - Search for a location by lat/lng</li>"
-                    "<li><a href='/tag_search'>Bushwick Tag Search</a></li>"
-                "</ul>")
+                "<ol>"
+#                    "<li><a href='/recent'>[U]ser Recent Media</a> Calls user_recent_media - Get a list of a user's most recent media</li>"
+#                    "<li><a href='/user_media_feed'>User [M]edia Feed</a> Calls user_media_feed - Get the currently authenticated user's media feed uses pagination</li>"
+#                    "<li><a href='/location_recent_media'>[L]ocation Recent Media</a> Calls location_recent_media - Get a list of recent media at a given location, in this case, Bushwick</li>"
+                    "<li><a href='/media_search'>Lat / Long [S]earch</a></li>"
+#                    "<li><a href='/media_popular'>[P]opular Media</a> Calls media_popular - Get a list of the overall most popular media items</li>"
+#                    "<li><a href='/user_search'>Us[e]r Search</a> Calls user_search - Search for users on instagram, by name or username</li>"
+#                    "<li><a href='/user_follows'>User [F]ollows</a> Get the followers of @instagram uses pagination</li>"
+#                    "<li><a href='/location_search'>L[o]cation Search</a> Calls location_search - Search for a location by lat/lng</li>"
+                    "<li><a href='/tag_search'>[B]ushwick Tag Search</a></li>"
+                "</ol>")
 
     return nav_menu
 
@@ -479,4 +479,4 @@ def on_realtime_callback():
         except subscriptions.SubscriptionVerifyError:
             print("Signature mismatch")
 
-bottle.run(app=app, host='104.131.176.227', port=8515, reloader=True)
+bottle.run(app=app, host='localhost', port=8515, reloader=True)
