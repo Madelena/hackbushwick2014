@@ -16,7 +16,7 @@ $(document).ready(function () {
             window.location.href = "fake-tweet.html";
         }
         if (event.which == 50) {
-            window.location.href = "/";
+            window.location.href = "../";
         }
     });
 
