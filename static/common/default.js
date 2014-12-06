@@ -10,4 +10,14 @@ $(document).ready(function () {
     $('#welcome pre').delay(2000).animate({ "opacity": 1 }, 100 );
     $('#menu pre').delay(2200).animate({ "opacity": 1 }, 100);
 
+
+    $(document).keypress(function (event) {
+        if (event.which == 49) {
+            window.location.href = "fake-tweet.html";
+        }
+        if (event.which == 50) {
+            window.location.href = "/";
+        }
+    });
+
 });
