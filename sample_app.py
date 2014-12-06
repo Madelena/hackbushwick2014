@@ -112,28 +112,155 @@ def img2txt(imgname):
         string += "\n"
 
     # wrap with html
-    template = """<!DOCTYPE HTML>
-    <html>
-    <head>
-      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-      <style type="text/css" media="all">
-        pre {
-          white-space: pre-wrap;       /* css-3 */
-          white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-          white-space: -pre-wrap;      /* Opera 4-6 */
-          white-space: -o-pre-wrap;    /* Opera 7 */
-          word-wrap: break-word;       /* Internet Explorer 5.5+ */
-          font-family: 'Inconsolata', 'Consolas'!important;
-          line-height: 1.0;
-          font-size: %dpx;
-        }
-      </style>
-    </head>
-    <body>
-      <pre>%s</pre>
-    </body>
-    </html>
-    """
+    template = """<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>* BBBS * The Bushwick BBS *</title>
+
+    <!-- Basic Page Needs  -->
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
+    <!-- link rel="stylesheet" type="text/css" href="common/style.css" / -->
+    <style>
+
+body {
+    background: black;
+    color: white;
+}
+
+
+pre {
+    display: block;
+    font-family: Cousine, monospace;
+    font-size: 25px;
+    line-height: 25px;
+    white-space: pre;
+    margin: 0 0;
+    opacity: 0;
+}
+
+
+#container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1080px;
+    height: 500px;
+    margin-left: -540px;
+    margin-top: -250px;
+}
+
+#frame {
+    color: blue;
+    position: absolute;
+    top: 0; left: 0;
+}
+
+#logo {
+    color: red;
+    position: absolute;
+    top: 50px; left: 0;
+}
+
+#welcome {
+    position: absolute;
+    top: 250px; left: 720px;
+    width: 300px;
+}
+
+#menu {
+    position: absolute;
+    top: 425px; left: 90px;
+}
+
+.cursor {
+    color: white;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+	0% {color: black;}
+	50% {color: white;}
+}
+    </style>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- Scripts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="common/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="common/jquery.easings.min.js"></script>
+    <script type="text/javascript" src="common/default.js"></script>
+</head>
+
+<body>
+    <div id="container">
+
+        <div id="frame">
+            <pre>   .-.     .-.     .-.     .-.     .-.     .-.     .-.     .-.     .-.</pre>
+            <pre> .'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `.</pre>
+            <pre>(                                                                       )</pre>
+            <pre> `.                                                                   .'</pre>
+            <pre>   )                                                                 (</pre>
+            <pre> ,'                                                                   `.</pre>
+            <pre>(                                                                       )</pre>
+            <pre> `.                                                                   .'</pre>
+            <pre>   )                                                                 (</pre>
+            <pre> ,'                                                                   `.</pre>
+            <pre>(                                                                       )</pre>
+            <pre> `.                                                                   .'</pre>
+            <pre>   )                                                                 (</pre>
+            <pre> ,'                                                                   `.</pre>
+            <pre>(                                                                       )</pre>
+            <pre> `.                                                                   .'</pre>
+            <pre>   )                                                                 (</pre>
+            <pre> ,'                                                                   `.</pre>
+            <pre>(                                                                       )</pre>
+            <pre> `.   .' `.   .' `.   .' `.   .' `.   .' `.   .' `.   .' `.   .' `.   .'</pre>
+            <pre>   `-'     `-'     `-'     `-'     `-'     `-'     `-'     `-'     `-'</pre>
+        </div>
+
+        <div id="logo">
+            <pre>     __________            .__           .__        __</pre>
+            <pre>     \______   \__ __ _____|  |____  _  _|__| ____ |  | __</pre>
+            <pre>      |    |  _|  |  /  ___|  |  \ \/ \/ |  _/ ___\|  |/ /</pre>
+            <pre>      |    |   |  |  \___ \|   Y  \     /|  \  \___|    <</pre>
+            <pre>      |______  |____/____  |___|  /\/\_/ |__|\___  |__|_ \</pre>
+            <pre>             \/          \/     \/               \/     \/</pre><span style="color: green;">
+    <pre>      ▀█████████▄  ▀█████████▄     ▄████████ </pre>
+    <pre>        ███    ███   ███    ███   ███    ███ </pre>
+    <pre>        ███    ███   ███    ███   ███    █▀  </pre>
+    <pre>       ▄███▄▄▄██▀   ▄███▄▄▄██▀    ███        </pre>
+    <pre>      ▀▀███▀▀▀██▄  ▀▀███▀▀▀██▄  ▀███████████ </pre>
+    <pre>        ███    ██▄   ███    ██▄          ███ </pre>
+    <pre>        ███    ███   ███    ███    ▄█    ███ </pre>
+    <pre>      ▄█████████▀  ▄█████████▀   ▄████████▀  </pre>
+</span>
+        </div>
+
+        <div id="welcome">
+            <pre>Hello! Welcome to
+*THE* Bushwick BBS.
+Today is
+December 6, 1994.</pre>
+        </div>
+        <div id="menu">
+            <pre>[1] TODAY'S BUSHWICK NEWS - [2] **LIVE** BUSHWICK PHOTOS<span class="cursor">_</span></pre>
+        </div>
+    </div>
+    <pre>%s</pre>
+
+
+
+</body>
+</html>"""
 
     html = template % (fontSize, string)
 
