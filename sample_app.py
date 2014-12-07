@@ -120,7 +120,7 @@ def img2txt(imgname):
       <style type="text/css" media="all">
       body {background: black; color: white;}
       h1, h2, li {font: 12px monospace;}
-      a, a:hover {color:green;}
+      a, a:visited, a:hover {color:green;}
         pre {
           white-space: pre-wrap;       /* css-3 */
           white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
