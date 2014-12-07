@@ -37,7 +37,7 @@ app = beaker.middleware.SessionMiddleware(bottle.app(), session_opts)
 CONFIG = {
     'client_id': 'b2295a1989024deb83be4f2ca5d243a7',
     'client_secret': '863ac37031484e15a8fbbdff3713d17a',
-    'redirect_uri': 'http://104.131.176.227:8515/oauth_callback'
+    'redirect_uri': 'http://localhost:8515/oauth_callback'
 }
 
 bw_latitude = "40.6962141"
@@ -132,8 +132,6 @@ def img2txt(imgname):
           font-size: %dpx;
         }
 		body {background: black; color white;}
-		#container {position: absolute; top: 5%; left: 50%; margin-left: -540px; width: 1080px; height: 90%;}
-		h1, h2, li {font: 12px 'Consine', monospace; line-height: 12px;}
       </style>
     </head>
     <body><div id="container">
@@ -486,4 +484,4 @@ def on_realtime_callback():
         except subscriptions.SubscriptionVerifyError:
             print("Signature mismatch")
 
-bottle.run(app=app, host='104.131.176.227', port=8515, reloader=True)
+bottle.run(app=app, host='localhost', port=8515, reloader=True)
