@@ -39,12 +39,12 @@ app = beaker.middleware.SessionMiddleware(bottle.app(), session_opts)
 #    return HTTPError(404, "Page not found")
 
 local_host = os.environ.get('HOST')
-local_port = int(os.environ.get('PORT'))
+local_port = os.environ.get('PORT')
 
 CONFIG = {
     'client_id': os.environ.get('INSTAGRAM_CLIENT_ID'),
     'client_secret': os.environ.get('INSTAGRAM_CLIENT_SECRET'),
-    'redirect_uri': 'http://' + local_host + ':' + str(local_port) + '/oauth_callback'
+    'redirect_uri': 'http://' + local_host + ':' + local_port) + '/oauth_callback'
 }
 
 bw_latitude = "40.6962141"
@@ -476,4 +476,4 @@ def on_realtime_callback():
         except subscriptions.SubscriptionVerifyError:
             print("Signature mismatch")
 
-bottle.run(app=app, host=local_host, port=local_port, reloader=True)
+bottle.run(app=app, host=local_host, port=int(local_port), reloader=True)
