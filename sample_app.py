@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+#'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
 import sys
 import bottle
 import beaker.middleware
@@ -32,12 +38,13 @@ app = beaker.middleware.SessionMiddleware(bottle.app(), session_opts)
 
 #    return HTTPError(404, "Page not found")
 
-
+local_host = os.environ.get('HOST')
+local_port = int(os.environ.get('PORT'))
 
 CONFIG = {
-    'client_id': 'b2295a1989024deb83be4f2ca5d243a7',
-    'client_secret': '863ac37031484e15a8fbbdff3713d17a',
-    'redirect_uri': 'http://104.131.176.227:8515/oauth_callback'
+    'client_id': os.environ.get('INSTAGRAM_CLIENT_ID'),
+    'client_secret': os.environ.get('INSTAGRAM_CLIENT_SECRET'),
+    'redirect_uri': 'http://' + local_host + ':' + str(local_port) + '/oauth_callback'
 }
 
 bw_latitude = "40.6962141"
@@ -46,30 +53,12 @@ bw_longitude = "-73.9178114"
 unauthenticated_api = client.InstagramAPI(**CONFIG)
 
 
-
 def img2txt(imgname):
-#    from docopt import docopt
     from PIL import Image
 
-#    dct = docopt(__doc__)
-
-#    imgname = dct['<imgfile>']
-
-#    maxLen = dct['--maxLen']
-
-#    clr = dct['--color']
     clr = False
 
-#    fontSize = dct['--fontSize']
-
-#    try:
-#        maxLen = float(maxLen)
-#    except:
     maxLen = 100.0   # default maxlen: 100px
-
-#    try:
-#        fontSize = int(fontSize)
-#    except:
     fontSize = 7
 
     try:
@@ -83,12 +72,9 @@ def img2txt(imgname):
     rate = maxLen / max(width, height)
 
     width = int(rate * width)  # cast to int
-
     height = int(rate * height)
 
     img = img.resize((width, height))
-
-    # img = img.convert('L')
 
     # get pixels
     pixel = img.load()
@@ -100,7 +86,6 @@ def img2txt(imgname):
 
     # first go through the height, otherwise will rotate
     for h in xrange(height):
-
         for w in xrange(width):
             rgb = pixel[w, h]
 
@@ -149,15 +134,19 @@ def img2txt(imgname):
 def setup_request():
     request.session = request.environ['beaker.session']
 
+
 def process_tag_update(update):
     print(update)
+
 
 reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update)
 
+
 @route('/static/<filepath:path>')
 def server_static(filepath):
     return static_file(filepath, root='./static/')
+
 
 @route('/')
 def home():
@@ -167,6 +156,7 @@ def home():
         return '<body style="background: black; color: white"><a href="%s" style="font: 12px monospace;">[Co]nnect with Instant-GRAM</a>' % url
     except Exception as e:
         print(e)
+
 
 def get_nav():
     nav_menu = ("<body style='background: black; color: white'><h1 style='font: 25px monospace;'>Bushwick Internet '85</h1>"
@@ -207,6 +197,7 @@ def on_callback():
 
     return get_nav()
 
+
 @route('/recent')
 def on_recent():
     content = "<h2>User Recent Media</h2>"
@@ -235,6 +226,7 @@ def on_recent():
         print(e)
 
     return "%s %s <br/>Remaining API Calls = %s/%s" % (get_nav(), content, api.x_ratelimit_remaining, api.x_ratelimit)
+
 
 @route('/media_like/<id>')
 def media_like(id):
@@ -484,4 +476,4 @@ def on_realtime_callback():
         except subscriptions.SubscriptionVerifyError:
             print("Signature mismatch")
 
-bottle.run(app=app, host='104.131.176.227', port=8515, reloader=True)
+bottle.run(app=app, host=local_host, port=local_port, reloader=True)

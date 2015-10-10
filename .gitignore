@@ -1,4 +1,5 @@
-hb_dev_env
+venv
+session
 # vim swp
 *.swp
 
