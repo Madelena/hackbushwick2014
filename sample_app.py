@@ -153,8 +153,7 @@ def server_static(filepath):
 def home():
     try:
         url = unauthenticated_api.get_authorize_url(scope=["likes","comments"])
-
-        return '<body style="background: black; color: white"><a href="%s" style="font: 12px monospace;">[Co]nnect with Instant-GRAM</a>' % url
+        return '<body style="background: black; color: white"><h1 style="font: 25px monospace;"><a href="%s">[Co]nnect with Instant-GRAM</a></h1>' % url
     except Exception as e:
         print(e)
 
