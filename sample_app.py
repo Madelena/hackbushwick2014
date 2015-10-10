@@ -44,7 +44,7 @@ local_port = os.environ.get('PORT')
 CONFIG = {
     'client_id': os.environ.get('INSTAGRAM_CLIENT_ID'),
     'client_secret': os.environ.get('INSTAGRAM_CLIENT_SECRET'),
-    'redirect_uri': 'http://' + local_host + ':' + local_port) + '/oauth_callback'
+    'redirect_uri': 'http://' + local_host + ':' + local_port + '/oauth_callback'
 }
 
 bw_latitude = "40.6962141"
