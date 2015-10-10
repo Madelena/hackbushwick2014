@@ -7,6 +7,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #'DIRS': [os.path.join(BASE_DIR, 'templates')],
 
 import sys
+from sys import argv
 import bottle
 import beaker.middleware
 import urllib
@@ -38,13 +39,13 @@ app = beaker.middleware.SessionMiddleware(bottle.app(), session_opts)
 
 #    return HTTPError(404, "Page not found")
 
-local_host = os.environ.get("HOST")
+local_host = os.environ.get("LOCALHOST")
 local_port = os.environ.get("PORT", 5000)
 
 CONFIG = {
     'client_id': os.environ.get('INSTAGRAM_CLIENT_ID'),
     'client_secret': os.environ.get('INSTAGRAM_CLIENT_SECRET'),
-    'redirect_uri': 'http://' + local_host + ':' + local_port + '/oauth_callback'
+    'redirect_uri': 'http://' + local_host + '/oauth_callback'
 }
 
 bw_latitude = "40.6962141"
@@ -475,5 +476,3 @@ def on_realtime_callback():
             reactor.process(CONFIG['client_secret'], raw_response, x_hub_signature)
         except subscriptions.SubscriptionVerifyError:
             print("Signature mismatch")
-
-bottle.run(app=app, host=local_host, port=int(local_port), reloader=True)
