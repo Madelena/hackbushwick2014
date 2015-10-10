@@ -38,8 +38,8 @@ app = beaker.middleware.SessionMiddleware(bottle.app(), session_opts)
 
 #    return HTTPError(404, "Page not found")
 
-local_host = os.environ.get('HOST')
-local_port = os.environ.get('PORT')
+local_host = os.environ.get("HOST")
+local_port = os.environ.get("PORT", 5000)
 
 CONFIG = {
     'client_id': os.environ.get('INSTAGRAM_CLIENT_ID'),
