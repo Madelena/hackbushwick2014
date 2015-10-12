@@ -17,7 +17,7 @@ from bottle import get, route, redirect, post, run, request, hook, static_file, 
 from bottle.ext import sqlite
 from instagram import client, subscriptions
 
-bottle.debug(True)
+#bottle.debug(True)
 
 session_opts = {
     'session.type': 'file',
