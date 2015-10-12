@@ -12,16 +12,16 @@
 
     <!-- CSS -->
     <link href='http://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="common/style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
 
     <!-- Scripts -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="common/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="common/jquery.easings.min.js"></script>
-    <script type="text/javascript" src="common/default.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
+    <script type="text/javascript" src="jquery.easings.min.js"></script>
+    <script type="text/javascript" src="default.js"></script>
 </head>
 
 <body>

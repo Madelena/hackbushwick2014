@@ -13,7 +13,7 @@ import beaker.middleware
 import urllib
 import cStringIO
 
-from bottle import route, redirect, post, run, request, hook, static_file
+from bottle import route, redirect, post, run, request, hook, static_file, template
 from bottle.ext import sqlite
 from instagram import client, subscriptions
 
@@ -144,6 +144,22 @@ reactor = subscriptions.SubscriptionsReactor()
 reactor.register_callback(subscriptions.SubscriptionType.TAG, process_tag_update)
 
 
+@get('/<filename:re:.*\.js>')
+def javascripts(filename):
+    return static_file(filename, root='static/js')
+
+@get('/<filename:re:.*\.css>')
+def stylesheets(filename):
+    return static_file(filename, root='static/css')
+
+@get('/<filename:re:.*\.(jpg|png|gif|ico)>')
+def images(filename):
+    return static_file(filename, root='static/img')
+
+@get('/<filename:re:.*\.(eot|ttf|woff|svg)>')
+def fonts(filename):
+    return static_file(filename, root='static/fonts')
+
 @route('/static/<filepath:path>')
 def server_static(filepath):
     return static_file(filepath, root='./static/')
@@ -153,7 +169,7 @@ def server_static(filepath):
 def home():
     try:
         url = unauthenticated_api.get_authorize_url(scope=["likes","comments"])
-        return server_static("index.html")        
+        return template("index")        
     except Exception as e:
         print(e)
 
