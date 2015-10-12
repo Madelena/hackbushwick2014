@@ -13,7 +13,7 @@ import beaker.middleware
 import urllib
 import cStringIO
 
-from bottle import route, redirect, post, run, request, hook, static_file, template
+from bottle import get, route, redirect, post, run, request, hook, static_file, template
 from bottle.ext import sqlite
 from instagram import client, subscriptions
 
